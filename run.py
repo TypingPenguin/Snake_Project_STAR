@@ -31,4 +31,5 @@ conf.solver_name = dict_solver[args.s]
 conf.mode = dict_mode[args.m]
 print("Solver: %s    Mode: %s" % (conf.solver_name, conf.mode))
 
-Game(conf).run()
+game_obj = Game(conf)
+game_obj.run()

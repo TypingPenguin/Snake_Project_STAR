@@ -261,6 +261,16 @@ class Game:
                               (self._snake.direc, self._snake.direc_next))
         self._log_file.write("\n")
 
-    def score(self):
-        return 0
-        #return self._snake.len() * 2;
+    def score(self, len_snake, t_elapsed):
+        i = 0
+
+        prev_1 = 0
+        prev_2 = 1
+
+        while i < len_snake:
+            temp = prev_1
+
+            prev_1 = prev_1 + prev_2
+            prev_2 = temp
+
+        return prev_1 * (100 / t_elapsed)

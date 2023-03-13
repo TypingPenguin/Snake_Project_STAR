@@ -260,3 +260,7 @@ class Game:
         self._log_file.write("[ last/next direc: %s/%s ]\n" % \
                               (self._snake.direc, self._snake.direc_next))
         self._log_file.write("\n")
+
+    def score(self):
+        return 0
+        #return self._snake.len() * 2;

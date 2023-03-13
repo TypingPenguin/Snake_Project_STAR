@@ -263,4 +263,4 @@ class Game:
 
     def score(self):
         return 0
-        #return self._snake.len() * 2;
+        #return self._snake.len() * 2

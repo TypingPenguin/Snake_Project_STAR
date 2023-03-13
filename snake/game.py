@@ -262,15 +262,19 @@ class Game:
         self._log_file.write("\n")
 
 def score(len_snake, t_elapsed):
-    i = 0
+    if t_elapsed == 0:
+        return 0
+    if len_snake > 64 or t_elapsed < 0 or len_snake < 0:
+        return False
 
+    i = 0
     prev_1 = 0
     prev_2 = 1
 
     while i < len_snake:
         temp = prev_1
-
         prev_1 = prev_1 + prev_2
         prev_2 = temp
+        i += 1
 
     return prev_1 * (100 / t_elapsed)

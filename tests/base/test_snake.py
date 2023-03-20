@@ -5,6 +5,7 @@
 """Unit tests for class Snake."""
 
 from snake.base import Direc, Pos, PointType, Map, Snake
+from enum import Enum
 
 
 def test_init():
@@ -122,6 +123,46 @@ def test_move_eat():
     assert m.is_full()
     assert s.len() == 9 and s.steps == 25 and not s.dead
 
+def test_mealy_machine_test_simple():
+   m = Map(10, 10)
+
+   #Try to go in any direction
+   for x in range(4):
+       s = Snake(m, Direc(x+1),
+             [Pos(5, 5)],
+             [PointType.HEAD_R, PointType.BODY_HOR, PointType.BODY_HOR])
+       s.move(Direc(x+1))
+       # Check if move was legal
+       assert not s.dead
+       # Try to move in opposite direction
+
+       s.move(Direc.opposite(Direc(x+1)))
+       # Check that it was an illegal move
+
+       #Doesn't actually die, so that's a problem
+       assert s.dead
+
+def test_mealy_machine_test_mult_direction():
+    m = Map(10, 10)
+
+    #Try to go in any direction
+    for x in range(4):
+        s = Snake(m, Direc(x+1),
+              [Pos(5, 5)],
+              [PointType.HEAD_R, PointType.BODY_HOR, PointType.BODY_HOR])
+        s.move(Direc(((x+1)%4)+1))
+        s.move(Direc(((x+2)%4)+1))
+        s.move(Direc(((x+3)%4)+1))
+        s.move(Direc(((x+4)%4)+1))
+        # Check if move was legal
+        assert not s.dead
+        # Try to move in opposite direction
+
+        s.move(Direc.opposite(Direc((((x+4)%4)+1))))
+        # Check that it was an illegal move
+
+        #Doesn't actually die, so that's a problem
+        assert s.dead
 
 def test_dead():
     m = Map(5, 5)
